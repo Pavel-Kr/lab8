@@ -1,0 +1,111 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:lab8.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
+        x:Class="lab8.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+		xmlns:model="using:lab8.Models"
+        Title="lab8">
+	<Window.Resources>
+		<model:BitmapAssetValueConverter x:Key="variableImage"/>
+	</Window.Resources>
+
+    <Grid RowDefinitions="auto,*">
+		<Menu Grid.Row="0">
+			<MenuItem Header="File">
+				<MenuItem Header="New" Command="{Binding NewBoard}"></MenuItem>
+			    <MenuItem Header="Save" Name="Save"></MenuItem>
+			    <MenuItem Header="Load" Name="Load"></MenuItem>
+				<Separator/>
+			    <MenuItem Header="Exit" Name="Exit"></MenuItem>
+			</MenuItem>
+		    <MenuItem Header="About" Name="About"></MenuItem>
+		</Menu>
+		<Grid Grid.Row="1" RowDefinitions="auto,*,auto" ColumnDefinitions="*,*,*">
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="0">
+				<TextBlock Text="Запланировано" HorizontalAlignment="Center"/>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+				<TextBlock Text="В работе" HorizontalAlignment="Center"/>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="2">
+				<TextBlock Text="Завершено" HorizontalAlignment="Center"/>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0">
+				<ScrollViewer>
+					<ItemsControl Items="{Binding KanbanTasks[0]}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="model:KanbanTask">
+								<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+									<StackPanel>
+										<TextBlock Text="Header:"/>
+										<TextBox Text="{Binding Header}"/>
+										<TextBlock Text="Task:"/>
+										<TextBox Text="{Binding Text}" AcceptsReturn="True" TextWrapping="Wrap"/>
+										<Image Source="{Binding ImgSource, Converter={StaticResource variableImage}}"/>
+										<Button Click="AddImageClick" Content="Add Image" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+										<Button Click="OnClick" Content="Delete" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+									</StackPanel>
+								</Expander>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+				<ScrollViewer>
+					<ItemsControl Items="{Binding KanbanTasks[1]}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="model:KanbanTask">
+								<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+									<StackPanel>
+										<TextBlock Text="Header:"/>
+										<TextBox Text="{Binding Header}"/>
+										<TextBlock Text="Task:"/>
+										<TextBox Text="{Binding Text}" AcceptsReturn="True" TextWrapping="Wrap"/>
+										<Image Source="{Binding ImgSource, Converter={StaticResource variableImage}}"/>
+										<Button Content="Add Image" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+										<Button Click="OnClick" Content="Delete" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+									</StackPanel>
+								</Expander>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="2">
+				<ScrollViewer>
+					<ItemsControl Items="{Binding KanbanTasks[2]}" HorizontalAlignment="Stretch">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="model:KanbanTask">
+								<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+									<StackPanel>
+										<TextBlock Text="Header:"/>
+										<TextBox Text="{Binding Header}"/>
+										<TextBlock Text="Task:"/>
+										<TextBox Text="{Binding Text}" AcceptsReturn="True" TextWrapping="Wrap"/>
+										<Image Source="{Binding ImgSource, Converter={StaticResource variableImage}}"/>
+										<Button Content="Add Image" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+										<Button Click="OnClick" Content="Delete" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+									</StackPanel>
+								</Expander>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="0">
+				<Button Command="{Binding Add}" CommandParameter="0" Content="Add" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="1">
+				<Button Command="{Binding Add}" CommandParameter="1" Content="Add" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+			</Border>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.Column="2">
+				<Button Command="{Binding Add}" CommandParameter="2" Content="Add" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+			</Border>
+		</Grid>
+	</Grid>
+
+</Window>
