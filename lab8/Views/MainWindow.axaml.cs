@@ -66,7 +66,8 @@ namespace lab8.Views
             };
             window.Filters.Add(new FileDialogFilter() { Name = "Images (*.jpg, *.png)", Extensions = { "jpg", "png" } });
             string[]? path = await window.ShowAsync((Window)this.VisualRoot);
-            context.AddImage(item, string.Join(@"\", path));
+            if(path != null)
+                context.AddImage(item, string.Join(@"\", path));
         }
     }
 }
